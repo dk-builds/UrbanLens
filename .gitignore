@@ -1,9 +1,10 @@
-# data - never commit
+# data
 data/
 outputs/checkpoints/
 *.tif
 *.pth
 *.zip
+*.png
 
 # python
 __pycache__/
