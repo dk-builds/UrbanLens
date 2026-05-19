@@ -1,0 +1,18 @@
+# data - never commit
+data/
+outputs/checkpoints/
+*.tif
+*.pth
+*.zip
+
+# python
+__pycache__/
+*.pyc
+*.egg-info/
+.env
+
+# jupyter
+.ipynb_checkpoints/
+
+# mlflow
+mlruns/
