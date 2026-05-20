@@ -1,0 +1,79 @@
+project:
+  name: "urban_sprawl_detection"
+  seed: 42
+  output_dir: "outputs"
+
+data:
+  eurosat_dir: "data/raw/eurosat/EuroSATallBands"
+  bengaluru_2017: "data/processed/bengaluru_2017.tif"
+  bengaluru_2025: "data/processed/bengaluru_2025.tif"
+  processed_dir: "data/processed"
+  aoi_bbox: [77.4, 12.8, 77.8, 13.2]
+  target_crs: "EPSG:32643"
+  target_resolution: 10
+
+classes:
+  names: ["Urban", "Vegetation", "Water", "Agriculture", "Bare Soil"]
+  num_classes: 5
+  colors:
+    Urban: "#E74C3C"
+    Vegetation: "#27AE60"
+    Water: "#2980B9"
+    Agriculture: "#F39C12"
+    Bare Soil: "#D4AC0D"
+
+eurosat_mapping:
+  AnnualCrop: Agriculture
+  Forest: Vegetation
+  HerbaceousVegetation: Vegetation
+  Highway: Urban
+  Industrial: Urban
+  Pasture: Vegetation
+  PermanentCrop: Agriculture
+  Residential: Urban
+  River: Water
+  SeaLake: Water
+
+model:
+  architecture: "unet"
+  in_channels: 5
+  num_classes: 5
+  base_features: 64
+  dropout: 0.3
+
+training:
+  epochs: 30
+  batch_size: 16
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  lr_scheduler: "cosine"
+  early_stopping_patience: 7
+  device: "cuda"
+  val_split: 0.15
+  test_split: 0.10
+
+change_detection:
+  water_buffer_m: 500
+  green_buffer_m: 300
+  min_change_area_m2: 1000
+
+inference:
+  patch_size: 256
+  overlap: 32
+  batch_size: 4
+  
+mlflow:
+  experiment_name: "bengaluru_unet"
+  tracking_uri: "mlruns"
+  
+cities:
+  bengaluru:
+    image_2017: "data/processed/bengaluru_2017.tif"
+    image_2025: "data/processed/bengaluru_2025.tif"
+    crs: "EPSG:32643"
+    checkpoint: "outputs/checkpoints/best_unet_finetuned.pth"
+  hyderabad:
+    image_2017: "data/processed/hyderabad_2017.tif"
+    image_2025: "data/processed/hyderabad_2025.tif"
+    crs: "EPSG:32644"
+    checkpoint: "outputs/checkpoints/best_unet_finetuned.pth"
