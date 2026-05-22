@@ -1,10 +1,12 @@
 project:
-  name: "urban_sprawl_detection"
+  name: "UrbanLens"
   seed: 42
   output_dir: "outputs"
 
 data:
   eurosat_dir: "data/raw/eurosat/EuroSATallBands"
+  eurosat_bands: ["B02","B03","B04","B08","B12"]
+  eurosat_band_indices: [1,2,3,7,11]
   bengaluru_2017: "data/processed/bengaluru_2017.tif"
   bengaluru_2025: "data/processed/bengaluru_2025.tif"
   processed_dir: "data/processed"
