@@ -1,0 +1,21 @@
+# Phase 0 — corpus export & inspection.
+earthengine-api==1.7.32
+numpy==2.5.2
+rasterio==1.5.1
+requests==2.34.2
+
+# Phases 2-4 — dataset, spectral indices, model, training.
+pyyaml==6.0.3
+torch==2.13.0
+mlflow==3.15.1
+
+# Phases 7-8 — change previews, interactive map, labeling page.
+matplotlib==3.11.1
+pillow==12.3.0
+folium==0.20.0
+
+# Phase 9 — API (the Docker image uses requirements-api.txt instead).
+fastapi==0.141.1
+uvicorn==0.52.1
+python-multipart==0.0.32
+httpx==0.28.1

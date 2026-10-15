@@ -1,0 +1,131 @@
+loaded outputs/checkpoints/unet5ch_v2_ablation_best.pt (in_channels=5, trained to epoch 30, train val_miou=0.7876299710821449)
+
+hyderabad 2019  (mIoU=0.7193)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.8997  0.9472     0.9905   0.9075      9458353
+  Vegetation    0.7696  0.8698     0.8348   0.9079      5773437
+  Water         0.8822  0.9374     0.9276   0.9474       464690
+  Agriculture   0.6797  0.8093     0.8090   0.8096      3464371
+  Bare Soil     0.3653  0.5351     0.3745   0.9371       182643
+
+hyderabad 2019 [land only, DW Water pixels excluded]  (mIoU=0.6803)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.8998  0.9472     0.9906   0.9075      9458353
+  Vegetation    0.7706  0.8704     0.8359   0.9079      5773437
+  Water            NaN     NaN        NaN      NaN            0
+  Agriculture   0.6812  0.8104     0.8112   0.8096      3464371
+  Bare Soil     0.3697  0.5398     0.3791   0.9371       182643
+
+hyderabad 2021  (mIoU=0.7240)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.9231  0.9600     0.9763   0.9442      9346446
+  Vegetation    0.7276  0.8423     0.7812   0.9139      4805075
+  Water         0.8903  0.9420     0.9249   0.9597       850647
+  Agriculture   0.6590  0.7945     0.8744   0.7280      4199066
+  Bare Soil     0.4201  0.5916     0.4342   0.9279       142208
+
+hyderabad 2021 [land only, DW Water pixels excluded]  (mIoU=0.6844)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.9234  0.9602     0.9766   0.9442      9346446
+  Vegetation    0.7295  0.8436     0.7833   0.9139      4805075
+  Water            NaN     NaN        NaN      NaN            0
+  Agriculture   0.6609  0.7958     0.8776   0.7280      4199066
+  Bare Soil     0.4240  0.5955     0.4384   0.9279       142208
+
+hyderabad 2024  (mIoU=0.7079)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.9070  0.9512     0.9890   0.9162     10737639
+  Vegetation    0.6842  0.8125     0.7092   0.9510      4202822
+  Water         0.9101  0.9529     0.9480   0.9580       866679
+  Agriculture   0.5953  0.7463     0.8634   0.6572      3353308
+  Bare Soil     0.4428  0.6138     0.4763   0.8629       182955
+
+hyderabad 2024 [land only, DW Water pixels excluded]  (mIoU=0.6592)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.9072  0.9513     0.9892   0.9162     10737639
+  Vegetation    0.6864  0.8141     0.7116   0.9510      4202822
+  Water            NaN     NaN        NaN      NaN            0
+  Agriculture   0.5973  0.7479     0.8677   0.6572      3353308
+  Bare Soil     0.4461  0.6169     0.4801   0.8629       182955
+
+hyderabad (2019+2021+2024 pooled)  (mIoU=0.7174)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.9098  0.9528     0.9853   0.9223     29542438
+  Vegetation    0.7293  0.8435     0.7772   0.9221     14781334
+  Water         0.8963  0.9453     0.9345   0.9564      2182016
+  Agriculture   0.6469  0.7856     0.8476   0.7321     11016745
+  Bare Soil     0.4046  0.5762     0.4220   0.9078       507806
+
+hyderabad (2019+2021+2024 pooled) [land only, DW Water pixels excluded]  (mIoU=0.6746)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.9100  0.9529     0.9855   0.9223     29542438
+  Vegetation    0.7310  0.8446     0.7791   0.9221     14781334
+  Water            NaN     NaN        NaN      NaN            0
+  Agriculture   0.6487  0.7870     0.8507   0.7321     11016745
+  Bare Soil     0.4086  0.5802     0.4263   0.9078       507806
+
+kochi 2019  (mIoU=0.6907)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.8630  0.9265     0.9734   0.8839      4805697
+  Vegetation    0.7783  0.8753     0.8350   0.9197      3679712
+  Water         0.9818  0.9908     0.9906   0.9911     10542689
+  Agriculture   0.4083  0.5799     0.5375   0.6295       321660
+  Bare Soil     0.4222  0.5938     0.4621   0.8302        10231
+
+kochi 2019 [land only, DW Water pixels excluded]  (mIoU=0.6294)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.8632  0.9266     0.9736   0.8839      4805697
+  Vegetation    0.7945  0.8855     0.8537   0.9197      3679712
+  Water            NaN     NaN        NaN      NaN            0
+  Agriculture   0.4112  0.5828     0.5424   0.6295       321660
+  Bare Soil     0.4486  0.6193     0.4939   0.8302        10231
+
+kochi 2024  (mIoU=0.6728)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.8751  0.9334     0.9752   0.8951      5277183
+  Vegetation    0.7475  0.8555     0.7998   0.9196      3263570
+  Water         0.9798  0.9898     0.9925   0.9872     10502444
+  Agriculture   0.3693  0.5394     0.5426   0.5363       309756
+  Bare Soil     0.3922  0.5634     0.4472   0.7613         7001
+
+kochi 2024 [land only, DW Water pixels excluded]  (mIoU=0.6125)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.8756  0.9337     0.9757   0.8951      5277183
+  Vegetation    0.7723  0.8715     0.8282   0.9196      3263570
+  Water            NaN     NaN        NaN      NaN            0
+  Agriculture   0.3713  0.5415     0.5468   0.5363       309756
+  Bare Soil     0.4308  0.6022     0.4981   0.7613         7001
+
+kochi (2019+2024 pooled)  (mIoU=0.6827)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.8694  0.9301     0.9743   0.8897     10082880
+  Vegetation    0.7635  0.8659     0.8181   0.9196      6943282
+  Water         0.9808  0.9903     0.9915   0.9891     21045133
+  Agriculture   0.3898  0.5609     0.5398   0.5838       631416
+  Bare Soil     0.4101  0.5817     0.4563   0.8022        17232
+
+kochi (2019+2024 pooled) [land only, DW Water pixels excluded]  (mIoU=0.6218)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.8697  0.9303     0.9747   0.8897     10082880
+  Vegetation    0.7839  0.8789     0.8415   0.9196      6943282
+  Water            NaN     NaN        NaN      NaN            0
+  Agriculture   0.3922  0.5634     0.5444   0.5838       631416
+  Bare Soil     0.4416  0.6126     0.4955   0.8022        17232
+
+ALL HELD-OUT CITIES (pooled)  (mIoU=0.7291)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.8994  0.9471     0.9826   0.9140     39625318
+  Vegetation    0.7399  0.8505     0.7898   0.9213     21724616
+  Water         0.9725  0.9860     0.9860   0.9860     23227149
+  Agriculture   0.6288  0.7721     0.8270   0.7240     11648161
+  Bare Soil     0.4048  0.5763     0.4229   0.9043       525038
+
+ALL HELD-OUT CITIES (pooled) [land only, DW Water pixels excluded]  (mIoU=0.6717)
+  class            IoU      F1  precision   recall     n_pixels
+  Urban         0.8997  0.9472     0.9828   0.9140     39625318
+  Vegetation    0.7471  0.8553     0.7980   0.9213     21724616
+  Water            NaN     NaN        NaN      NaN            0
+  Agriculture   0.6307  0.7735     0.8303   0.7240     11648161
+  Bare Soil     0.4095  0.5811     0.4281   0.9043       525038
+
+saved -> /home/dekay/Documents/UrbanLens/outputs/metrics/eval_unet5ch_v2_ablation_best.json

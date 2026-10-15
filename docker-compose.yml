@@ -1,0 +1,9 @@
+services:
+  api:
+    build: .
+    image: urbanlens-api
+    ports:
+      - "${URBANLENS_PORT:-8000}:8000"
+    volumes:
+      - ./outputs/checkpoints/unet5ch_v2_ablation_best.pt:/models/model.pt:ro
+    restart: unless-stopped

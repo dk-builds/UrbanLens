@@ -1,0 +1,1164 @@
+{
+  "note": "Area-weighted estimates from a stratified random sample (strata = city x 5ch-model class, 2024 composite). Reference = hand labels on high-resolution imagery. Rows of the confusion matrices are reference, columns are map; cells are estimated area fractions.",
+  "n_design": 300,
+  "n_labeled": 299,
+  "n_cannot_label": 0,
+  "n_unlabeled": 1,
+  "thin_strata": {},
+  "pooled": {
+    "n_points": 299,
+    "maps": {
+      "dynamic_world": {
+        "overall_accuracy": 0.7998991300484055,
+        "miou": 0.5324488863584673,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.7014155197099178,
+            "producers_accuracy": 0.9972287455187439,
+            "iou": 0.7000509784953636,
+            "ref_area_frac": 0.31272128095144075,
+            "map_area_frac": 0.444607571314066
+          },
+          "Vegetation": {
+            "users_accuracy": 0.8744538675833221,
+            "producers_accuracy": 0.5580582488098587,
+            "iou": 0.5166627501381982,
+            "ref_area_frac": 0.2610756248222667,
+            "map_area_frac": 0.16661302716620585
+          },
+          "Water": {
+            "users_accuracy": 0.9885980079114568,
+            "producers_accuracy": 0.969786666612976,
+            "iou": 0.9590595552375234,
+            "ref_area_frac": 0.2925877566641056,
+            "map_area_frac": 0.28702030851397914
+          },
+          "Agriculture": {
+            "users_accuracy": 0.5651670614837976,
+            "producers_accuracy": 0.589423332514597,
+            "iou": 0.4055212835554961,
+            "ref_area_frac": 0.09388528921450515,
+            "map_area_frac": 0.09791472966882525
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.8488240566723563,
+            "producers_accuracy": 0.0821340073491354,
+            "iou": 0.08094986436575477,
+            "ref_area_frac": 0.03973004834768172,
+            "map_area_frac": 0.0038443633369236335
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.7461,
+          0.8525
+        ],
+        "miou_ci95": [
+          0.4836,
+          0.5974
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.31185,
+            0.0,
+            0.0,
+            0.00029,
+            0.00058
+          ],
+          [
+            0.08509,
+            0.1457,
+            0.00324,
+            0.02704,
+            0.0
+          ],
+          [
+            0.00075,
+            0.00809,
+            0.28375,
+            0.0,
+            0.0
+          ],
+          [
+            0.0263,
+            0.01225,
+            0.0,
+            0.05534,
+            0.0
+          ],
+          [
+            0.02061,
+            0.00058,
+            3e-05,
+            0.01525,
+            0.00326
+          ]
+        ],
+        "n_correct_unweighted": 215
+      },
+      "5ch": {
+        "overall_accuracy": 0.8672854906492281,
+        "miou": 0.6371671595922622,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.8109155457420187,
+            "producers_accuracy": 0.9910091428230103,
+            "iou": 0.8049932335992696,
+            "ref_area_frac": 0.3127212809514408,
+            "map_area_frac": 0.3821725335091732
+          },
+          "Vegetation": {
+            "users_accuracy": 0.8532878188991914,
+            "producers_accuracy": 0.7928136242761441,
+            "iou": 0.6977062203239769,
+            "ref_area_frac": 0.2610756248222666,
+            "map_area_frac": 0.24257267916062147
+          },
+          "Water": {
+            "users_accuracy": 0.9615096206656807,
+            "producers_accuracy": 0.961319987034646,
+            "iou": 0.9256966009211186,
+            "ref_area_frac": 0.2925877566641056,
+            "map_area_frac": 0.2925300510754147
+          },
+          "Agriculture": {
+            "users_accuracy": 0.8401040941078796,
+            "producers_accuracy": 0.6608523676089516,
+            "iou": 0.5870177656447368,
+            "ref_area_frac": 0.09388528921450516,
+            "map_area_frac": 0.07385312855419754
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.7976858175506246,
+            "producers_accuracy": 0.17812099244648613,
+            "iou": 0.17042197747220966,
+            "ref_area_frac": 0.03973004834768173,
+            "map_area_frac": 0.008871607700593002
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.8144,
+          0.9164
+        ],
+        "miou_ci95": [
+          0.5735,
+          0.7226
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.30991,
+            0.0,
+            0.00075,
+            0.00027,
+            0.00178
+          ],
+          [
+            0.03822,
+            0.20698,
+            0.009,
+            0.00687,
+            1e-05
+          ],
+          [
+            0.0,
+            0.01132,
+            0.28127,
+            0.0,
+            0.0
+          ],
+          [
+            0.02548,
+            0.00485,
+            0.00151,
+            0.06204,
+            0.0
+          ],
+          [
+            0.00857,
+            0.01942,
+            0.0,
+            0.00467,
+            0.00708
+          ]
+        ],
+        "n_correct_unweighted": 254
+      },
+      "8ch": {
+        "overall_accuracy": 0.8478039450021165,
+        "miou": 0.5947639255703995,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.7969197550992229,
+            "producers_accuracy": 0.9937803973042664,
+            "iou": 0.7929648075931918,
+            "ref_area_frac": 0.3127212809514408,
+            "map_area_frac": 0.3899718595766619
+          },
+          "Vegetation": {
+            "users_accuracy": 0.8188115281310773,
+            "producers_accuracy": 0.7541103995002963,
+            "iou": 0.646267009688496,
+            "ref_area_frac": 0.26107562482226665,
+            "map_area_frac": 0.2404458620457918
+          },
+          "Water": {
+            "users_accuracy": 0.9615096206656807,
+            "producers_accuracy": 0.961319987034646,
+            "iou": 0.9256966009211186,
+            "ref_area_frac": 0.2925877566641056,
+            "map_area_frac": 0.2925300510754147
+          },
+          "Agriculture": {
+            "users_accuracy": 0.7602675564853968,
+            "producers_accuracy": 0.5733548840634245,
+            "iou": 0.4855672648772394,
+            "ref_area_frac": 0.09388528921450515,
+            "map_area_frac": 0.07080348050321891
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.8078059561296792,
+            "producers_accuracy": 0.12705181826949286,
+            "iou": 0.12332394477195145,
+            "ref_area_frac": 0.03973004834768173,
+            "map_area_frac": 0.006248746798912548
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.7942,
+          0.899
+        ],
+        "miou_ci95": [
+          0.535,
+          0.6721
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.31078,
+            0.0,
+            0.00075,
+            0.0,
+            0.00119
+          ],
+          [
+            0.04374,
+            0.19688,
+            0.009,
+            0.01145,
+            1e-05
+          ],
+          [
+            0.0,
+            0.01132,
+            0.28127,
+            0.0,
+            0.0
+          ],
+          [
+            0.0263,
+            0.01225,
+            0.00151,
+            0.05383,
+            0.0
+          ],
+          [
+            0.00916,
+            0.02,
+            0.0,
+            0.00553,
+            0.00505
+          ]
+        ],
+        "n_correct_unweighted": 230
+      }
+    },
+    "5ch_minus_dw_oa": {
+      "estimate": 0.0674,
+      "ci95": [
+        0.0342,
+        0.0996
+      ],
+      "frac_boot_above_zero": 1.0
+    },
+    "8ch_minus_dw_oa": {
+      "estimate": 0.0479,
+      "ci95": [
+        0.017,
+        0.0789
+      ],
+      "frac_boot_above_zero": 1.0
+    },
+    "ref_counts_unweighted": {
+      "Urban": 64,
+      "Vegetation": 64,
+      "Water": 59,
+      "Agriculture": 58,
+      "Bare Soil": 54
+    }
+  },
+  "sure_only": {
+    "n_points": 298,
+    "maps": {
+      "dynamic_world": {
+        "overall_accuracy": 0.7991191026089314,
+        "miou": 0.5315098602512299,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.7007130377500216,
+            "producers_accuracy": 0.9972287455187439,
+            "iou": 0.6993512257452196,
+            "ref_area_frac": 0.31272128095144075,
+            "map_area_frac": 0.44505330127947984
+          },
+          "Vegetation": {
+            "users_accuracy": 0.8731913811065452,
+            "producers_accuracy": 0.5551175542612212,
+            "iou": 0.5137044645254063,
+            "ref_area_frac": 0.2608527598395598,
+            "map_area_frac": 0.16583299972673166
+          },
+          "Water": {
+            "users_accuracy": 0.9882189166165853,
+            "producers_accuracy": 0.9694291010412702,
+            "iou": 0.9583533348848189,
+            "ref_area_frac": 0.29281062164681254,
+            "map_area_frac": 0.2872431734966861
+          },
+          "Agriculture": {
+            "users_accuracy": 0.5645246006110649,
+            "producers_accuracy": 0.589423332514597,
+            "iou": 0.4051904117349503,
+            "ref_area_frac": 0.09388528921450515,
+            "map_area_frac": 0.09802616216017872
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.8488240566723563,
+            "producers_accuracy": 0.0821340073491354,
+            "iou": 0.08094986436575477,
+            "ref_area_frac": 0.03973004834768172,
+            "map_area_frac": 0.0038443633369236335
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.747,
+          0.8507
+        ],
+        "miou_ci95": [
+          0.4839,
+          0.5959
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.31185,
+            0.0,
+            0.0,
+            0.00029,
+            0.00058
+          ],
+          [
+            0.08554,
+            0.1448,
+            0.00335,
+            0.02716,
+            0.0
+          ],
+          [
+            0.00075,
+            0.0082,
+            0.28386,
+            0.0,
+            0.0
+          ],
+          [
+            0.0263,
+            0.01225,
+            0.0,
+            0.05534,
+            0.0
+          ],
+          [
+            0.02061,
+            0.00058,
+            3e-05,
+            0.01525,
+            0.00326
+          ]
+        ],
+        "n_correct_unweighted": 214
+      },
+      "5ch": {
+        "overall_accuracy": 0.8670626256665214,
+        "miou": 0.6368812163146237,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.8109155457420187,
+            "producers_accuracy": 0.9910091428230103,
+            "iou": 0.8049932335992696,
+            "ref_area_frac": 0.3127212809514408,
+            "map_area_frac": 0.3821725335091732
+          },
+          "Vegetation": {
+            "users_accuracy": 0.8523690634009294,
+            "producers_accuracy": 0.7926366102852966,
+            "iou": 0.6969549832713713,
+            "ref_area_frac": 0.2608527598395598,
+            "map_area_frac": 0.24257267916062164
+          },
+          "Water": {
+            "users_accuracy": 0.9615096206656807,
+            "producers_accuracy": 0.9605883040066145,
+            "iou": 0.9250181215855312,
+            "ref_area_frac": 0.29281062164681254,
+            "map_area_frac": 0.2925300510754147
+          },
+          "Agriculture": {
+            "users_accuracy": 0.8401040941078796,
+            "producers_accuracy": 0.6608523676089516,
+            "iou": 0.5870177656447368,
+            "ref_area_frac": 0.09388528921450516,
+            "map_area_frac": 0.07385312855419754
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.7976858175506246,
+            "producers_accuracy": 0.17812099244648613,
+            "iou": 0.17042197747220966,
+            "ref_area_frac": 0.03973004834768173,
+            "map_area_frac": 0.008871607700593002
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.8159,
+          0.9136
+        ],
+        "miou_ci95": [
+          0.5747,
+          0.7176
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.30991,
+            0.0,
+            0.00075,
+            0.00027,
+            0.00178
+          ],
+          [
+            0.03822,
+            0.20676,
+            0.009,
+            0.00687,
+            1e-05
+          ],
+          [
+            0.0,
+            0.01154,
+            0.28127,
+            0.0,
+            0.0
+          ],
+          [
+            0.02548,
+            0.00485,
+            0.00151,
+            0.06204,
+            0.0
+          ],
+          [
+            0.00857,
+            0.01942,
+            0.0,
+            0.00467,
+            0.00708
+          ]
+        ],
+        "n_correct_unweighted": 253
+      },
+      "8ch": {
+        "overall_accuracy": 0.8472467825453494,
+        "miou": 0.5941272860732144,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.7962371928174192,
+            "producers_accuracy": 0.9937803973042664,
+            "iou": 0.7922890004578953,
+            "ref_area_frac": 0.3127212809514408,
+            "map_area_frac": 0.39030615705072236
+          },
+          "Vegetation": {
+            "users_accuracy": 0.8176310942286658,
+            "producers_accuracy": 0.752618762394893,
+            "iou": 0.6444380986734546,
+            "ref_area_frac": 0.2608527598395598,
+            "map_area_frac": 0.2401115645717315
+          },
+          "Water": {
+            "users_accuracy": 0.9615096206656807,
+            "producers_accuracy": 0.9605883040066145,
+            "iou": 0.9250181215855312,
+            "ref_area_frac": 0.29281062164681254,
+            "map_area_frac": 0.2925300510754147
+          },
+          "Agriculture": {
+            "users_accuracy": 0.7602675564853968,
+            "producers_accuracy": 0.5733548840634245,
+            "iou": 0.4855672648772394,
+            "ref_area_frac": 0.09388528921450515,
+            "map_area_frac": 0.07080348050321891
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.8078059561296792,
+            "producers_accuracy": 0.12705181826949286,
+            "iou": 0.12332394477195145,
+            "ref_area_frac": 0.03973004834768173,
+            "map_area_frac": 0.006248746798912548
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.7952,
+          0.8958
+        ],
+        "miou_ci95": [
+          0.5348,
+          0.6682
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.31078,
+            0.0,
+            0.00075,
+            0.0,
+            0.00119
+          ],
+          [
+            0.04407,
+            0.19632,
+            0.009,
+            0.01145,
+            1e-05
+          ],
+          [
+            0.0,
+            0.01154,
+            0.28127,
+            0.0,
+            0.0
+          ],
+          [
+            0.0263,
+            0.01225,
+            0.00151,
+            0.05383,
+            0.0
+          ],
+          [
+            0.00916,
+            0.02,
+            0.0,
+            0.00553,
+            0.00505
+          ]
+        ],
+        "n_correct_unweighted": 229
+      }
+    },
+    "5ch_minus_dw_oa": {
+      "estimate": 0.0679,
+      "ci95": [
+        0.0355,
+        0.0987
+      ],
+      "frac_boot_above_zero": 1.0
+    },
+    "8ch_minus_dw_oa": {
+      "estimate": 0.0481,
+      "ci95": [
+        0.0166,
+        0.0795
+      ],
+      "frac_boot_above_zero": 0.998
+    },
+    "ref_counts_unweighted": {
+      "Urban": 64,
+      "Vegetation": 63,
+      "Water": 59,
+      "Agriculture": 58,
+      "Bare Soil": 54
+    }
+  },
+  "hyderabad": {
+    "n_points": 150,
+    "maps": {
+      "dynamic_world": {
+        "overall_accuracy": 0.7047088301887731,
+        "miou": 0.4831928461180811,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.6902580112510609,
+            "producers_accuracy": 0.9958845647578299,
+            "iou": 0.6882946842365468,
+            "ref_area_frac": 0.41635030644125387,
+            "map_area_frac": 0.600698343168125
+          },
+          "Vegetation": {
+            "users_accuracy": 0.8270057635960144,
+            "producers_accuracy": 0.4714927151841419,
+            "iou": 0.4291652168986354,
+            "ref_area_frac": 0.2977230273287487,
+            "map_area_frac": 0.16973792046828573
+          },
+          "Water": {
+            "users_accuracy": 1.0,
+            "producers_accuracy": 0.7776182929846901,
+            "iou": 0.7776182929846901,
+            "ref_area_frac": 0.05046196197570131,
+            "map_area_frac": 0.03924014473220319
+          },
+          "Agriculture": {
+            "users_accuracy": 0.5695774284177936,
+            "producers_accuracy": 0.6636688141236315,
+            "iou": 0.441996141958277,
+            "ref_area_frac": 0.15696821116050094,
+            "map_area_frac": 0.18289858649311433
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.8461538461538461,
+            "producers_accuracy": 0.08003792791040702,
+            "iou": 0.07888989451225584,
+            "ref_area_frac": 0.07849649309379533,
+            "map_area_frac": 0.007425005138272036
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.6161,
+          0.7939
+        ],
+        "miou_ci95": [
+          0.404,
+          0.5851
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.41464,
+            0.0,
+            0.0,
+            0.00057,
+            0.00114
+          ],
+          [
+            0.1097,
+            0.14037,
+            0.0,
+            0.04765,
+            0.0
+          ],
+          [
+            0.00151,
+            0.00971,
+            0.03924,
+            0.0,
+            0.0
+          ],
+          [
+            0.03428,
+            0.01851,
+            0.0,
+            0.10417,
+            0.0
+          ],
+          [
+            0.04057,
+            0.00114,
+            0.0,
+            0.03051,
+            0.00628
+          ]
+        ],
+        "n_correct_unweighted": 105
+      },
+      "5ch": {
+        "overall_accuracy": 0.808925814828618,
+        "miou": 0.5939880614240591,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.8000000000000002,
+            "producers_accuracy": 0.9881442100367861,
+            "iou": 0.7923942600123817,
+            "ref_area_frac": 0.41635030644125387,
+            "map_area_frac": 0.5142676808212082
+          },
+          "Vegetation": {
+            "users_accuracy": 0.7999999999999999,
+            "producers_accuracy": 0.7829489840772923,
+            "iou": 0.6547834707698313,
+            "ref_area_frac": 0.29772302732874867,
+            "map_area_frac": 0.29137742722932464
+          },
+          "Water": {
+            "users_accuracy": 0.9,
+            "producers_accuracy": 0.8075266888687166,
+            "iou": 0.7410370045759999,
+            "ref_area_frac": 0.05046196197570131,
+            "map_area_frac": 0.045277090075619066
+          },
+          "Agriculture": {
+            "users_accuracy": 0.8333333333333333,
+            "producers_accuracy": 0.700477152115688,
+            "iou": 0.6144022100463217,
+            "ref_area_frac": 0.15696821116050094,
+            "map_area_frac": 0.13194317463168198
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.7999999999999999,
+            "producers_accuracy": 0.17462820634997886,
+            "iou": 0.16732336171576084,
+            "ref_area_frac": 0.07849649309379533,
+            "map_area_frac": 0.017134627242166228
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.7245,
+          0.89
+        ],
+        "miou_ci95": [
+          0.5073,
+          0.7105
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.41141,
+            0.0,
+            0.00151,
+            0.0,
+            0.00343
+          ],
+          [
+            0.05143,
+            0.2331,
+            0.0,
+            0.01319,
+            0.0
+          ],
+          [
+            0.0,
+            0.00971,
+            0.04075,
+            0.0,
+            0.0
+          ],
+          [
+            0.03428,
+            0.00971,
+            0.00302,
+            0.10995,
+            0.0
+          ],
+          [
+            0.01714,
+            0.03885,
+            0.0,
+            0.0088,
+            0.01371
+          ]
+        ],
+        "n_correct_unweighted": 124
+      },
+      "8ch": {
+        "overall_accuracy": 0.7881324053132397,
+        "miou": 0.5595643927420461,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.7988955166524253,
+            "producers_accuracy": 0.9922596452789562,
+            "iou": 0.7939476567994684,
+            "ref_area_frac": 0.4163503064412539,
+            "map_area_frac": 0.5171234520282361
+          },
+          "Vegetation": {
+            "users_accuracy": 0.7660726403744074,
+            "producers_accuracy": 0.7503261097407384,
+            "iou": 0.6104584690589218,
+            "ref_area_frac": 0.29772302732874867,
+            "map_area_frac": 0.2916033664466037
+          },
+          "Water": {
+            "users_accuracy": 0.9,
+            "producers_accuracy": 0.8075266888687166,
+            "iou": 0.7410370045759999,
+            "ref_area_frac": 0.05046196197570131,
+            "map_area_frac": 0.045277090075619066
+          },
+          "Agriculture": {
+            "users_accuracy": 0.751684430807541,
+            "producers_accuracy": 0.6444389799464328,
+            "iou": 0.5313262531457082,
+            "ref_area_frac": 0.15696821116050094,
+            "map_area_frac": 0.1345730066214306
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.85,
+            "producers_accuracy": 0.1236949794979017,
+            "iou": 0.12105258013013147,
+            "ref_area_frac": 0.07849649309379535,
+            "map_area_frac": 0.011423084828110821
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.6986,
+          0.8714
+        ],
+        "miou_ci95": [
+          0.4733,
+          0.6627
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.41313,
+            0.0,
+            0.00151,
+            0.0,
+            0.00171
+          ],
+          [
+            0.05143,
+            0.22339,
+            0.0,
+            0.02291,
+            0.0
+          ],
+          [
+            0.0,
+            0.00971,
+            0.04075,
+            0.0,
+            0.0
+          ],
+          [
+            0.03428,
+            0.01851,
+            0.00302,
+            0.10116,
+            0.0
+          ],
+          [
+            0.01828,
+            0.03999,
+            0.0,
+            0.01051,
+            0.00971
+          ]
+        ],
+        "n_correct_unweighted": 117
+      }
+    },
+    "5ch_minus_dw_oa": {
+      "estimate": 0.1042,
+      "ci95": [
+        0.0572,
+        0.1574
+      ],
+      "frac_boot_above_zero": 1.0
+    },
+    "8ch_minus_dw_oa": {
+      "estimate": 0.0834,
+      "ci95": [
+        0.0355,
+        0.1356
+      ],
+      "frac_boot_above_zero": 1.0
+    },
+    "ref_counts_unweighted": {
+      "Urban": 31,
+      "Vegetation": 30,
+      "Water": 28,
+      "Agriculture": 30,
+      "Bare Soil": 31
+    }
+  },
+  "kochi": {
+    "n_points": 149,
+    "maps": {
+      "dynamic_world": {
+        "overall_accuracy": 0.8950080508586368,
+        "miou": 0.5510604603359752,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.7246151086801692,
+            "producers_accuracy": 0.9999018947332529,
+            "iou": 0.7245635954448888,
+            "ref_area_frac": 0.2091808488539927,
+            "map_area_frac": 0.28865024287443714
+          },
+          "Vegetation": {
+            "users_accuracy": 0.923672887978186,
+            "producers_accuracy": 0.6727805640620117,
+            "iou": 0.6373473726259024,
+            "ref_area_frac": 0.22445955251206962,
+            "map_area_frac": 0.16349080536370936
+          },
+          "Water": {
+            "users_accuracy": 0.987761788650193,
+            "producers_accuracy": 0.9879134844026718,
+            "iou": 0.9759675529021259,
+            "ref_area_frac": 0.5345065558179183,
+            "map_area_frac": 0.5345886427898191
+          },
+          "Agriculture": {
+            "users_accuracy": 0.5031869303688932,
+            "producers_accuracy": 0.21205410352562384,
+            "iou": 0.17534290673905178,
+            "ref_area_frac": 0.03085629742976531,
+            "map_area_frac": 0.013003526313356314
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.923076923076923,
+            "producers_accuracy": 0.24706501690280072,
+            "iou": 0.2420808739679069,
+            "ref_area_frac": 0.0009967453862538209,
+            "map_area_frac": 0.00026678265867780465
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.8351,
+          0.9454
+        ],
+        "miou_ci95": [
+          0.4802,
+          0.6833
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.20916,
+            0.0,
+            0.0,
+            0.0,
+            2e-05
+          ],
+          [
+            0.06051,
+            0.15101,
+            0.00648,
+            0.00646,
+            0.0
+          ],
+          [
+            0.0,
+            0.00646,
+            0.52805,
+            0.0,
+            0.0
+          ],
+          [
+            0.01832,
+            0.006,
+            0.0,
+            0.00654,
+            0.0
+          ],
+          [
+            0.00067,
+            2e-05,
+            6e-05,
+            0.0,
+            0.00025
+          ]
+        ],
+        "n_correct_unweighted": 110
+      },
+      "5ch": {
+        "overall_accuracy": 0.9255952742544689,
+        "miou": 0.6724688768634791,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.8333333333333334,
+            "producers_accuracy": 0.9967065854957571,
+            "iou": 0.8310449838470442,
+            "ref_area_frac": 0.20918084885399277,
+            "map_area_frac": 0.2501903155348406
+          },
+          "Vegetation": {
+            "users_accuracy": 0.9333333333333332,
+            "producers_accuracy": 0.805886891607168,
+            "iou": 0.7620223337580592,
+            "ref_area_frac": 0.22445955251206956,
+            "map_area_frac": 0.19380965471302247
+          },
+          "Water": {
+            "users_accuracy": 0.9666666666666666,
+            "producers_accuracy": 0.9758269688053437,
+            "iou": 0.9440600963170958,
+            "ref_area_frac": 0.5345065558179183,
+            "map_area_frac": 0.539571633279707
+          },
+          "Agriculture": {
+            "users_accuracy": 0.896551724137931,
+            "producers_accuracy": 0.4594505576388517,
+            "iou": 0.43631971132970665,
+            "ref_area_frac": 0.03085629742976531,
+            "map_area_frac": 0.01581274418317316
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.7333333333333334,
+            "producers_accuracy": 0.4529525309884681,
+            "iou": 0.38889725906548944,
+            "ref_area_frac": 0.000996745386253821,
+            "map_area_frac": 0.0006156522892564725
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.8678,
+          0.9734
+        ],
+        "miou_ci95": [
+          0.5821,
+          0.8574
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.20849,
+            0.0,
+            0.0,
+            0.00055,
+            0.00014
+          ],
+          [
+            0.02502,
+            0.18089,
+            0.01799,
+            0.00055,
+            2e-05
+          ],
+          [
+            0.0,
+            0.01292,
+            0.52159,
+            0.0,
+            0.0
+          ],
+          [
+            0.01668,
+            0.0,
+            0.0,
+            0.01418,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.0,
+            0.00055,
+            0.00045
+          ]
+        ],
+        "n_correct_unweighted": 130
+      },
+      "8ch": {
+        "overall_accuracy": 0.907424470951323,
+        "miou": 0.5749653534468175,
+        "per_class": {
+          "Urban": {
+            "users_accuracy": 0.7930371887820877,
+            "producers_accuracy": 0.9968046907625043,
+            "iou": 0.791026303476211,
+            "ref_area_frac": 0.20918084885399274,
+            "map_area_frac": 0.26292897017297107
+          },
+          "Vegetation": {
+            "users_accuracy": 0.8999688717673839,
+            "producers_accuracy": 0.7591255881627799,
+            "iou": 0.7000572356223598,
+            "ref_area_frac": 0.22445955251206953,
+            "map_area_frac": 0.189332092658779
+          },
+          "Water": {
+            "users_accuracy": 0.9666666666666666,
+            "producers_accuracy": 0.9758269688053437,
+            "iou": 0.9440600963170958,
+            "ref_area_frac": 0.5345065558179183,
+            "map_area_frac": 0.539571633279707
+          },
+          "Agriculture": {
+            "users_accuracy": 0.9230769230769231,
+            "producers_accuracy": 0.21205410352562384,
+            "iou": 0.208371926682903,
+            "ref_area_frac": 0.03085629742976531,
+            "map_area_frac": 0.007088471530387969
+          },
+          "Bare Soil": {
+            "users_accuracy": 0.36142141416302714,
+            "producers_accuracy": 0.3911862767627679,
+            "iou": 0.23131120513551767,
+            "ref_area_frac": 0.000996745386253821,
+            "map_area_frac": 0.001078832358154684
+          }
+        },
+        "overall_accuracy_ci95": [
+          0.8486,
+          0.9555
+        ],
+        "miou_ci95": [
+          0.5022,
+          0.7102
+        ],
+        "confusion_matrix_area_frac": [
+          [
+            0.20851,
+            0.0,
+            0.0,
+            0.0,
+            0.00067
+          ],
+          [
+            0.03606,
+            0.17039,
+            0.01799,
+            0.0,
+            2e-05
+          ],
+          [
+            0.0,
+            0.01292,
+            0.52159,
+            0.0,
+            0.0
+          ],
+          [
+            0.01832,
+            0.006,
+            0.0,
+            0.00654,
+            0.0
+          ],
+          [
+            4e-05,
+            2e-05,
+            0.0,
+            0.00055,
+            0.00039
+          ]
+        ],
+        "n_correct_unweighted": 113
+      }
+    },
+    "5ch_minus_dw_oa": {
+      "estimate": 0.0306,
+      "ci95": [
+        -0.0073,
+        0.0648
+      ],
+      "frac_boot_above_zero": 0.949
+    },
+    "8ch_minus_dw_oa": {
+      "estimate": 0.0124,
+      "ci95": [
+        -0.0252,
+        0.047
+      ],
+      "frac_boot_above_zero": 0.75
+    },
+    "ref_counts_unweighted": {
+      "Urban": 33,
+      "Vegetation": 34,
+      "Water": 31,
+      "Agriculture": 28,
+      "Bare Soil": 23
+    }
+  }
+}

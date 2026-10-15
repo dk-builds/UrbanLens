@@ -1,0 +1,28 @@
+{
+  "city": "hyderabad",
+  "years": [
+    2019,
+    2024
+  ],
+  "width": 176,
+  "height": 185,
+  "classes": [
+    "Urban",
+    "Vegetation",
+    "Water",
+    "Agriculture",
+    "Bare Soil"
+  ],
+  "bounds": [
+    [
+      17.174939376380493,
+      78.2639903629847
+    ],
+    [
+      17.58516021032976,
+      78.67506202560953
+    ]
+  ],
+  "tag": "unet5ch_v2_ablation_best",
+  "nodata": 255
+}

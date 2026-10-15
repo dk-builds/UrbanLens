@@ -1,0 +1,9 @@
+# Build context = only what the image copies (data/, archive/ and checkpoints are GBs).
+*
+!requirements-api.txt
+!configs/config.yaml
+!src/api.py
+!src/predict.py
+!src/model.py
+!src/spectral_indices.py
+!src/dataset.py

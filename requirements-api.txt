@@ -1,0 +1,8 @@
+# API image only (Dockerfile). torch is installed separately from the CPU-only
+# index there, so it is not pinned here.
+numpy==2.5.2
+rasterio==1.5.1
+pyyaml==6.0.3
+fastapi==0.141.1
+uvicorn==0.52.1
+python-multipart==0.0.32

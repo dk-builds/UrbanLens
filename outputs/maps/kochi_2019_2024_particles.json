@@ -1,0 +1,28 @@
+{
+  "city": "kochi",
+  "years": [
+    2019,
+    2024
+  ],
+  "width": 180,
+  "height": 181,
+  "classes": [
+    "Urban",
+    "Vegetation",
+    "Water",
+    "Agriculture",
+    "Bare Soil"
+  ],
+  "bounds": [
+    [
+      9.731456871668769,
+      76.06600595389406
+    ],
+    [
+      10.13083764354339,
+      76.46880943347777
+    ]
+  ],
+  "tag": "unet5ch_v2_ablation_best",
+  "nodata": 255
+}

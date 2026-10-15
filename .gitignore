@@ -1,19 +1,25 @@
-# data
-data/
-outputs/checkpoints/
-*.tif
-*.pth
-*.zip
-*.png
-
-# python
+# Environment
+.venv/
 __pycache__/
 *.pyc
-*.egg-info/
-.env
 
-# jupyter
-.ipynb_checkpoints/
+# Local notes and agent files
+state.md
+urbanlens_project_instructions.md
+.claude/
+.codex
 
-# mlflow
+# Large or regenerable data (re-export with scripts/export_gee.py)
+data/raw/
+data/processed/
+archive/
+
+# Model checkpoints (~120-370 MB each) and experiment tracking
+outputs/checkpoints/
 mlruns/
+mlflow.db
+outputs/metrics/mlflow_ui*
+
+# Regenerable outputs: full-city prediction rasters, labeling page
+outputs/change_detection/*.tif
+outputs/validation/

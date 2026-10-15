@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UrbanLens Point Labeling</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<style>
+  :root { --bg:#111; --panel:#1b1b1b; --ink:#eee; --dim:#999; --line:#333; --acc:#ffd23f; }
+  * { box-sizing: border-box; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--ink);
+    font: 14px/1.4 system-ui, sans-serif; }
+  #app { display:flex; height:100%; }
+  #map { flex:1; min-width:0; background:#000; }
+  #side { width:400px; overflow-y:auto; background:var(--panel); border-left:1px solid var(--line); padding:14px; }
+  @media (max-width: 800px) { #app { flex-direction:column; } #map { height:55vh; flex:none; } #side { width:100%; } }
+  h1 { font-size:15px; margin:0 0 8px; }
+  .row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:8px 0; }
+  .dim { color:var(--dim); font-size:12px; }
+  button, select, input[type=text] { background:#262626; color:var(--ink); border:1px solid #444; border-radius:4px;
+    padding:6px 9px; font:inherit; }
+  button:hover { border-color:#777; cursor:pointer; }
+  .cls { flex:1 1 30%; text-align:left; }
+  .cls.on { background:var(--acc); color:#000; border-color:var(--acc); font-weight:600; }
+  .flag.on { background:#c0392b; border-color:#c0392b; }
+  #bar { height:6px; background:#333; border-radius:3px; overflow:hidden; }
+  #bar > div { height:100%; background:var(--acc); width:0; }
+  .chips { display:flex; gap:8px; }
+  .chip { position:relative; width:180px; height:180px; }
+  .chip img { width:180px; height:180px; image-rendering:pixelated; display:block; }
+  .chip .px { position:absolute; border:1px solid var(--acc); pointer-events:none; }
+  .chip span { position:absolute; left:4px; top:2px; font-size:11px; text-shadow:0 0 3px #000; }
+  details { margin-top:10px; border-top:1px solid var(--line); padding-top:8px; }
+  summary { cursor:pointer; font-weight:600; }
+  details li { margin:3px 0; }
+  kbd { background:#333; border-radius:3px; padding:0 4px; font-size:12px; }
+  #status { min-height:18px; }
+  #reveal { margin:8px 0; padding:8px 10px; border:1px solid var(--line); border-radius:4px; }
+  #reveal:empty { display:none; }
+  #reveal table { border-collapse:collapse; width:100%; }
+  #reveal td { padding:2px 0; }
+  .ok { color:#7fd17f; } .bad { color:#ff9f7f; }
+  .warn { color:#ff9f7f; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="map"></div>
+  <div id="side">
+    <h1>UrbanLens: label points</h1>
+    <div id="bar"><div></div></div>
+    <div class="row"><span id="progress"></span><span class="dim" id="pid"></span></div>
+    <div class="dim" id="lastResult"></div>
+    <div class="row">
+      <button id="prev">&larr; Prev</button><button id="next">Next &rarr;</button>
+      <button id="nextU">Next unlabeled</button>
+      <input type="text" id="jump" placeholder="P042" size="5">
+    </div>
+
+    <div class="row" id="classBtns"></div>
+    <div class="row">
+      <button id="unsure" class="flag">Unsure (U)</button>
+      <button id="cannot" class="flag">Cannot label (X)</button>
+    </div>
+    <div class="row"><input type="text" id="note" placeholder="note (optional)" style="flex:1"></div>
+    <div id="reveal"></div>
+
+    <div class="row"><strong>High-res imagery</strong></div>
+    <div class="row">
+      <select id="capture" style="flex:1"></select>
+    </div>
+    <div class="dim" id="captureInfo"></div>
+
+    <div class="row"><strong>Sentinel-2, <span id="s2win"></span></strong></div>
+    <div class="chips">
+      <div class="chip"><img id="tc" alt="true colour"><div class="px"></div><span>true colour</span></div>
+      <div class="chip"><img id="fc" alt="false colour"><div class="px"></div><span>NIR false colour</span></div>
+    </div>
+    <div class="dim">400 m across; the yellow box is the labeled 10 m pixel. In false colour, healthy vegetation is red.</div>
+
+    <div class="row">
+      <a id="gmaps" target="_blank" rel="noopener" style="color:var(--acc)">Open in Google Maps</a>
+    </div>
+
+    <div class="row">
+      <button id="export">Export CSV</button>
+      <label><button id="importBtn">Import CSV</button><input type="file" id="importFile" accept=".csv" hidden></label>
+    </div>
+    <div id="status" class="dim"></div>
+
+    <details>
+      <summary>Labeling rules</summary>
+      <ul>
+        <li>Label the class covering most of the <b>inner yellow square</b> (one 10 m Sentinel-2 pixel), as it was in <b>Jan to Mar 2024</b>. The dashed box is the 3&times;3 pixel neighbourhood, for context and for imagery offset of a few metres.</li>
+        <li>Pick the capture date closest to early 2024. If the high-res image is older or newer, check the Sentinel-2 chips for change (new buildings, cleared land) and label what the 2024 chips support.</li>
+        <li><b>Urban</b>: buildings, roads, paved yards, rail, built infrastructure.</li>
+        <li><b>Vegetation</b>: trees, plantations and orchards (coconut, rubber, mango), grass, parks, shrub and scrub, mangroves, water covered by floating plants.</li>
+        <li><b>Water</b>: open water: lakes, rivers, backwaters, ponds, reservoirs, sea.</li>
+        <li><b>Agriculture</b>: cropland with field parcels, standing crops, paddy (also when flooded) and fallow fields that still show the parcel structure.</li>
+        <li><b>Bare Soil</b>: exposed ground with almost no vegetation: rock, quarries, sand, dry riverbeds, construction sites cleared but not yet built.</li>
+        <li>Mixed pixel with no clear majority: give your best guess and mark <b>Unsure</b>. Use <b>Cannot label</b> only for cloud, missing or blurry imagery.</li>
+        <li>Do not look at the model or Dynamic World maps while labeling. The tool shows their classes only after you label a point; do not go back and change a label because of them. Change a label only if you misjudged the imagery.</li>
+      </ul>
+      <p class="dim">Keys: <kbd>1</kbd>&ndash;<kbd>5</kbd> label and go to next &middot; <kbd>U</kbd> unsure &middot; <kbd>X</kbd> cannot label &middot;
+        <kbd>&larr;</kbd>/<kbd>&rarr;</kbd> prev/next &middot; <kbd>[</kbd>/<kbd>]</kbd> older/newer imagery &middot; <kbd>Z</kbd> zoom out/in &middot;
+        <kbd>H</kbd> hide boxes</p>
+    </details>
+  </div>
+</div>
+
+<script>
+const DATA = /*__PAYLOAD__*/null;
+if (!DATA) {
+  document.body.innerHTML = "<p style='padding:20px'>This is the template. Open outputs/validation/label_tool.html " +
+    "(built by <code>python src/independent_validation.py tool</code>) in Chrome or Firefox.</p>";
+  throw new Error("template opened directly");
+}
+const KEY = "urbanlens-labels-v1";
+const pts = DATA.points;
+let labels = {};
+try { labels = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (e) {}
+let i = 0;
+try { i = Math.min(+localStorage.getItem(KEY + "-pos") || 0, pts.length - 1); } catch (e) {}
+
+const $ = id => document.getElementById(id);
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(labels)); localStorage.setItem(KEY + "-pos", i); } catch (e) {} };
+
+// map
+const map = L.map("map", { zoomControl: true, maxZoom: 21 });
+const WB = "https://wayback.maptiles.arcgis.com/arcgis/rest/services/World_Imagery/WMTS/1.0.0/default028mm/MapServer/tile/";
+let imagery = null;
+function setRelease(num) {
+  if (imagery) map.removeLayer(imagery);
+  imagery = L.tileLayer(WB + num + "/{z}/{y}/{x}", { maxNativeZoom: 19, maxZoom: 21,
+    attribution: "Esri World Imagery Wayback" }).addTo(map);
+  imagery.bringToBack();
+}
+// until a point's capture dates arrive, show the release nearest the S2 window
+const defaultRelease = DATA.releases.reduce((b, r) =>
+  Math.abs(new Date(r.date) - new Date(DATA.target_date)) < Math.abs(new Date(b.date) - new Date(DATA.target_date)) ? r : b);
+setRelease(defaultRelease.num);
+let box = null, box3 = null, showBoxes = true, zoomedOut = false;
+
+// capture dates per point were looked up from each Wayback release's metadata at build time
+const captures = p => Promise.resolve(p.caps || []);
+const monthsFrom = d => Math.round((new Date(d) - new Date(DATA.target_date)) / (30.44 * 864e5));
+
+async function loadImagery(p) {
+  const sel = $("capture");
+  sel.innerHTML = "<option>loading capture dates…</option>";
+  $("captureInfo").textContent = "";
+  pts[i]._cap = null;
+  setRelease(defaultRelease.num);
+  const caps = await captures(p);
+  if (pts[i] !== p) return;
+  sel.innerHTML = "";
+  if (!caps.length) { sel.innerHTML = "<option>capture dates unavailable</option>"; return; }
+  caps.forEach((c, n) => {
+    const m = monthsFrom(c.date);
+    sel.add(new Option(`${c.date}  ·  ${c.src}, ${c.res} m  ·  ${m >= 0 ? "+" : ""}${m} mo`, n));
+  });
+  const prev = labels[p.id] && labels[p.id].capture_date;
+  let best = caps.findIndex(c => c.date === prev);
+  if (best < 0) best = caps.reduce((b, c, n) => Math.abs(monthsFrom(c.date)) < Math.abs(monthsFrom(caps[b].date)) ? n : b, 0);
+  sel.value = best;
+  applyCapture(caps[best]);
+  sel.onchange = () => applyCapture(caps[+sel.value]);
+}
+function applyCapture(c) {
+  setRelease(c.release);
+  const m = monthsFrom(c.date);
+  $("captureInfo").innerHTML = `Wayback release ${c.releaseDate}. ` +
+    (Math.abs(m) > 12 ? `<span class="warn">${Math.abs(m)} months from the Sentinel-2 window; check the chips for change.</span>` : "");
+  const L_ = labels[pts[i].id];
+  if (L_) { L_.capture_date = c.date; L_.release = c.releaseDate; save(); }
+  pts[i]._cap = c;
+}
+function stepCapture(d) {
+  const sel = $("capture"), n = +sel.value + d;
+  if (n >= 0 && n < sel.options.length && !isNaN(+sel.options[n].value)) { sel.value = n; sel.onchange(); }
+}
+
+// panel
+DATA.classes.forEach((c, k) => {
+  const b = document.createElement("button");
+  b.className = "cls"; b.textContent = `${k + 1}  ${c}`; b.onclick = () => setLabel(c);
+  $("classBtns").appendChild(b);
+});
+$("s2win").textContent = DATA.s2_window;
+const pxSize = 180 / DATA.chip_px, pxOff = (DATA.chip_px / 2) * pxSize;
+document.querySelectorAll(".chip .px").forEach(e => Object.assign(e.style,
+  { left: pxOff + "px", top: pxOff + "px", width: pxSize + "px", height: pxSize + "px" }));
+
+function show() {
+  const p = pts[i];
+  if (box) map.removeLayer(box);
+  if (box3) map.removeLayer(box3);
+  box = L.polygon(p.px, { color: "#ffd23f", weight: 2, fill: false });
+  box3 = L.polygon(p.px3, { color: "#ffd23f", weight: 1, dashArray: "4 4", fill: false });
+  if (showBoxes) { box.addTo(map); box3.addTo(map); }
+  map.setView([p.lat, p.lon], zoomedOut ? 16 : 19, { animate: false });
+  $("tc").src = p.tc; $("fc").src = p.fc;
+  $("pid").textContent = `${p.id} · ${p.city}`;
+  $("gmaps").href = `https://www.google.com/maps/@${p.lat},${p.lon},120m/data=!3m1!1e3`;
+  const L_ = labels[p.id] || {};
+  document.querySelectorAll(".cls").forEach((b, k) => b.classList.toggle("on", L_.label === DATA.classes[k]));
+  $("unsure").classList.toggle("on", !!L_.unsure);
+  $("cannot").classList.toggle("on", L_.label === "cannot");
+  $("note").value = L_.note || "";
+  $("reveal").innerHTML = L_.label ? compare(p, L_) : "";
+  const prev = pts[i - 1], PL = prev && labels[prev.id];
+  $("lastResult").innerHTML = PL && PL.label ? `Last, ${prev.id}: ${summary(prev, PL)}` : "";
+  const done = pts.filter(q => labels[q.id] && labels[q.id].label).length;
+  $("progress").textContent = `${i + 1} / ${pts.length} · ${done} labeled`;
+  $("bar").firstElementChild.style.width = (100 * done / pts.length) + "%";
+  save();
+  loadImagery(p);
+}
+// predictions are revealed only for points that already have a label
+function mark(pred, label) {
+  if (label === "cannot") return pred;
+  return pred === label ? `<span class="ok">${pred} &#10003;</span>` : `<span class="bad">${pred} &#10007;</span>`;
+}
+function compare(p, L_) {
+  const you = L_.label === "cannot" ? "cannot label" : L_.label + (L_.unsure ? " (unsure)" : "");
+  return `<table><tr><td>You</td><td><b>${you}</b></td></tr>` +
+    `<tr><td>5ch model</td><td>${mark(p.model, L_.label)}</td></tr>` +
+    `<tr><td>Dynamic World</td><td>${mark(p.dw, L_.label)}</td></tr></table>`;
+}
+function summary(p, L_) {
+  return `you ${L_.label === "cannot" ? "cannot label" : L_.label} · model ${mark(p.model, L_.label)} · DW ${mark(p.dw, L_.label)}`;
+}
+function record(patch) {
+  const p = pts[i], c = p._cap || {};
+  labels[p.id] = { ...(labels[p.id] || {}), ...patch, capture_date: c.date || "", release: c.releaseDate || defaultRelease.date,
+    labeled_at: new Date().toISOString() };
+  save();
+}
+function setLabel(c) { record({ label: c }); go(1); }
+function go(d) { if (i + d >= 0 && i + d < pts.length) { i += d; show(); } else show(); }
+$("prev").onclick = () => go(-1);
+$("next").onclick = () => go(1);
+$("nextU").onclick = () => {
+  for (let n = 1; n <= pts.length; n++) { const k = (i + n) % pts.length;
+    if (!(labels[pts[k].id] && labels[pts[k].id].label)) { i = k; show(); return; } }
+  $("status").textContent = "All points labeled. Export the CSV.";
+};
+$("unsure").onclick = () => { record({ unsure: !(labels[pts[i].id] || {}).unsure }); show(); };
+$("cannot").onclick = () => { record({ label: "cannot" }); go(1); };
+$("note").onchange = e => record({ note: e.target.value });
+$("jump").onchange = e => { const k = pts.findIndex(p => p.id.toLowerCase() === e.target.value.trim().toLowerCase());
+  if (k >= 0) { i = k; show(); } e.target.value = ""; };
+
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT" || e.ctrlKey || e.metaKey || e.altKey) return;
+  const k = e.key.toLowerCase();
+  if (k >= "1" && k <= String(DATA.classes.length)) setLabel(DATA.classes[+k - 1]);
+  else if (k === "u") $("unsure").click();
+  else if (k === "x") $("cannot").click();
+  else if (e.key === "ArrowLeft") go(-1);
+  else if (e.key === "ArrowRight") go(1);
+  else if (k === "[") stepCapture(-1);
+  else if (k === "]") stepCapture(1);
+  else if (k === "z") { zoomedOut = !zoomedOut; map.setView([pts[i].lat, pts[i].lon], zoomedOut ? 16 : 19); }
+  else if (k === "h") { showBoxes = !showBoxes; show(); }
+  else return;
+  e.preventDefault();
+});
+
+// CSV in/out
+const COLS = ["id", "city", "label", "unsure", "note", "capture_date", "release", "labeled_at"];
+const esc = v => /[",\n]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
+$("export").onclick = () => {
+  const lines = [COLS.join(",")];
+  pts.forEach(p => { const L_ = labels[p.id] || {};
+    lines.push([p.id, p.city, L_.label || "", L_.unsure ? 1 : 0, L_.note || "", L_.capture_date || "",
+      L_.release || "", L_.labeled_at || ""].map(v => esc(String(v))).join(",")); });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([lines.join("\n") + "\n"], { type: "text/csv" }));
+  a.download = "labels.csv"; a.click();
+  $("status").textContent = "Saved labels.csv. Move it to data/validation/labels.csv.";
+};
+function parseCSV(t) {
+  const rows = []; let row = [], f = "", q = false;
+  for (let n = 0; n < t.length; n++) { const ch = t[n];
+    if (q) { if (ch === '"' && t[n + 1] === '"') { f += '"'; n++; } else if (ch === '"') q = false; else f += ch; }
+    else if (ch === '"') q = true; else if (ch === ",") { row.push(f); f = ""; }
+    else if (ch === "\n") { row.push(f); rows.push(row); row = []; f = ""; } else if (ch !== "\r") f += ch; }
+  if (f || row.length) { row.push(f); rows.push(row); }
+  return rows;
+}
+$("importBtn").onclick = () => $("importFile").click();
+$("importFile").onchange = async e => {
+  const rows = parseCSV(await e.target.files[0].text()), head = rows.shift();
+  let n = 0;
+  rows.forEach(r => { const o = Object.fromEntries(head.map((h, k) => [h, r[k] || ""]));
+    if (o.id && o.label) { labels[o.id] = { label: o.label, unsure: o.unsure === "1", note: o.note,
+      capture_date: o.capture_date, release: o.release, labeled_at: o.labeled_at }; n++; } });
+  save(); show(); $("status").textContent = `Imported ${n} labels.`;
+};
+
+show();
+</script>
+</body>
+</html>

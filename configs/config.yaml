@@ -1,81 +1,45 @@
-project:
-  name: "UrbanLens"
-  seed: 42
-  output_dir: "outputs"
+# UrbanLens — frozen pipeline parameters. Values here are treated as fitted
+# config, not something to tune per-run: notably band mean/std, computed once
+# from training cities only (see project instructions section 5) and loaded
+# unchanged at both training and inference time.
 
-data:
-  eurosat_dir: "data/raw/eurosat/EuroSATallBands"
-  eurosat_bands: ["B02","B03","B04","B08","B12"]
-  eurosat_band_indices: [1,2,3,7,11]
-  bengaluru_2017: "data/processed/bengaluru_2017.tif"
-  bengaluru_2025: "data/processed/bengaluru_2025.tif"
-  processed_dir: "data/processed"
-  aoi_bbox: [77.4, 12.8, 77.8, 13.2]
-  target_crs: "EPSG:32643"
-  target_resolution: 10
+seed: 42
+
+patch:
+  size: 256
+  min_spacing_px: 128        # min distance between sampled patch centers
+  invalid_pixel_frac_max: 0.10   # reject a candidate patch above this
+  budget_per_train_city: 2000    # divided across that city's available dates
+  holdout_strip_frac: 0.20   # eastern strip of each train city, reserved for val
+
+bands:
+  order: [B02_blue, B03_green, B04_red, B08_nir, B11_swir]
+  # filled in by `python src/dataset.py --compute-stats`, training cities only
+  # (Bengaluru, Chennai, Pune, Coimbatore, Vizag — full-raster scan of the
+  # re-exported S2_SR_HARMONIZED rasters, 2026-10-08). Previous values, from
+  # the old 4-city set: mean [799.79, 1029.99, 1215.53, 2088.49, 2417.66].
+  mean: [725.79, 922.97, 1065.27, 1980.29, 2186.3]
+  std: [337.55, 422.14, 589.02, 922.62, 1119.42]
 
 classes:
-  names: ["Urban", "Vegetation", "Water", "Agriculture", "Bare Soil"]
-  num_classes: 5
-  colors:
-    Urban: "#E74C3C"
-    Vegetation: "#27AE60"
-    Water: "#2980B9"
-    Agriculture: "#F39C12"
-    Bare Soil: "#D4AC0D"
+  # target class order = model output channel order (section 4)
+  names: [Urban, Vegetation, Water, Agriculture, Bare Soil]
+  ignore_index: 255
+  # Dynamic World class ID -> target class ID. DW 8 (Snow/ice) has no target
+  # class and maps straight to ignore_index.
+  dw_to_target:
+    0: 2   # Water -> Water
+    1: 1   # Trees -> Vegetation
+    2: 1   # Grass -> Vegetation
+    3: 1   # Flooded vegetation -> Vegetation
+    4: 3   # Crops -> Agriculture
+    5: 1   # Shrub and scrub -> Vegetation
+    6: 0   # Built -> Urban
+    7: 4   # Bare ground -> Bare Soil
 
-eurosat_mapping:
-  AnnualCrop: Agriculture
-  Forest: Vegetation
-  HerbaceousVegetation: Vegetation
-  Highway: Urban
-  Industrial: Urban
-  Pasture: Vegetation
-  PermanentCrop: Agriculture
-  Residential: Urban
-  River: Water
-  SeaLake: Water
-
-model:
-  architecture: "unet"
-  in_channels: 5
-  num_classes: 5
-  base_features: 64
-  dropout: 0.3
-
-training:
-  epochs: 30
-  batch_size: 16
-  learning_rate: 0.001
-  weight_decay: 0.0001
-  lr_scheduler: "cosine"
-  early_stopping_patience: 7
-  device: "cuda"
-  val_split: 0.15
-  test_split: 0.10
-
-change_detection:
-  water_buffer_m: 500
-  green_buffer_m: 300
-  min_change_area_m2: 1000
-
-inference:
-  patch_size: 256
-  overlap: 32
-  batch_size: 4
-  
-mlflow:
-  experiment_name: "bengaluru_unet"
-  tracking_uri: "mlruns"
-  
 cities:
-  bengaluru:
-    image_2017: "data/processed/bengaluru_2017.tif"
-    image_2025: "data/processed/bengaluru_2025.tif"
-    crs: "EPSG:32643"
-    checkpoint: "outputs/checkpoints/best_unet_finetuned.pth"
-  hyderabad:
-    image_2017: "data/processed/hyderabad_2017.tif"
-    image_2025: "data/processed/hyderabad_2025.tif"
-    crs: "EPSG:32644"
-    checkpoint: "outputs/checkpoints/best_unet_finetuned.pth"
+  # mumbai dropped (2026-09-26) after its unresolved Agriculture IoU; ahmedabad
+  # dropped and kochi + vizag added (2026-10-06); then hyderabad moved to
+  # held-out and coimbatore + vizag moved to training (2026-10-06).
+  train: [bengaluru, chennai, pune, coimbatore, vizag]
+  test: [hyderabad, kochi]

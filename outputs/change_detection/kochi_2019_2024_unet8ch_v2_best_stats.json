@@ -1,0 +1,139 @@
+{
+  "city": "kochi",
+  "year_a": 2019,
+  "year_b": 2024,
+  "checkpoint": "outputs/checkpoints/unet8ch_v2_best.pt",
+  "in_channels": 8,
+  "pixel_area_km2": 0.0001,
+  "model": {
+    "transition_km2": {
+      "Urban": {
+        "Urban": 416.36,
+        "Vegetation": 22.883,
+        "Water": 0.643,
+        "Agriculture": 0.99,
+        "Bare Soil": 0.151
+      },
+      "Vegetation": {
+        "Urban": 65.118,
+        "Vegetation": 331.434,
+        "Water": 4.86,
+        "Agriculture": 9.413,
+        "Bare Soil": 0.21
+      },
+      "Water": {
+        "Urban": 2.288,
+        "Vegetation": 14.528,
+        "Water": 1033.919,
+        "Agriculture": 0.284,
+        "Bare Soil": 0.318
+      },
+      "Agriculture": {
+        "Urban": 3.237,
+        "Vegetation": 12.388,
+        "Water": 0.232,
+        "Agriculture": 10.956,
+        "Bare Soil": 0.041
+      },
+      "Bare Soil": {
+        "Urban": 0.577,
+        "Vegetation": 0.295,
+        "Water": 3.808,
+        "Agriculture": 0.091,
+        "Bare Soil": 0.978
+      }
+    },
+    "area_km2_date_a": {
+      "Urban": 441.027,
+      "Vegetation": 411.034,
+      "Water": 1051.336,
+      "Agriculture": 26.853,
+      "Bare Soil": 5.749
+    },
+    "area_km2_date_b": {
+      "Urban": 487.579,
+      "Vegetation": 381.527,
+      "Water": 1043.463,
+      "Agriculture": 21.734,
+      "Bare Soil": 1.697
+    },
+    "urban_gain_by_source_km2": {
+      "Vegetation": 65.118,
+      "Water": 2.288,
+      "Agriculture": 3.237,
+      "Bare Soil": 0.577
+    },
+    "urban_gain_km2": 71.219,
+    "urban_loss_km2": 24.667,
+    "urban_net_change_km2": 46.552
+  },
+  "dynamic_world": {
+    "transition_km2": {
+      "Urban": {
+        "Urban": 456.775,
+        "Vegetation": 21.254,
+        "Water": 1.248,
+        "Agriculture": 1.239,
+        "Bare Soil": 0.054
+      },
+      "Vegetation": {
+        "Urban": 66.289,
+        "Vegetation": 284.145,
+        "Water": 6.283,
+        "Agriculture": 11.088,
+        "Bare Soil": 0.166
+      },
+      "Water": {
+        "Urban": 2.259,
+        "Vegetation": 8.996,
+        "Water": 1042.333,
+        "Agriculture": 0.552,
+        "Bare Soil": 0.125
+      },
+      "Agriculture": {
+        "Urban": 2.18,
+        "Vegetation": 11.704,
+        "Water": 0.229,
+        "Agriculture": 18.025,
+        "Bare Soil": 0.027
+      },
+      "Bare Soil": {
+        "Urban": 0.214,
+        "Vegetation": 0.259,
+        "Water": 0.151,
+        "Agriculture": 0.071,
+        "Bare Soil": 0.328
+      }
+    },
+    "area_km2_date_a": {
+      "Urban": 480.57,
+      "Vegetation": 367.971,
+      "Water": 1054.264,
+      "Agriculture": 32.166,
+      "Bare Soil": 1.023
+    },
+    "area_km2_date_b": {
+      "Urban": 527.717,
+      "Vegetation": 326.357,
+      "Water": 1050.244,
+      "Agriculture": 30.976,
+      "Bare Soil": 0.7
+    },
+    "urban_gain_by_source_km2": {
+      "Vegetation": 66.289,
+      "Water": 2.259,
+      "Agriculture": 2.18,
+      "Bare Soil": 0.214
+    },
+    "urban_gain_km2": 70.942,
+    "urban_loss_km2": 23.794,
+    "urban_net_change_km2": 47.148
+  },
+  "gain_map_overlap_model_vs_dw": {
+    "model_gain_pixels": 712193,
+    "dw_gain_pixels": 709419,
+    "gain_agreement_iou": 0.365,
+    "gain_precision_vs_dw": 0.5338,
+    "gain_recall_vs_dw": 0.5359
+  }
+}
